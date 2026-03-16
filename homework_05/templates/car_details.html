@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ car.brand }} {{ car.model }}{% endblock %}
+
+{% block content %}
+    <h1>{{ car.brand }} {{ car.model }}</h1>
+
+    <div class="card" style="width: 18rem;">
+
+        <div class="card-body">
+            <h5 class="card-title">{{ car.brand }}</h5>
+
+            <p class="card-text">{{ car.model }}</p>
+
+            <p class="card-text">Стоимость: {{ car.cost }} руб.</p>
+
+        </div>
+    </div>
+
+{% endblock %}
