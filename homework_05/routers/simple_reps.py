@@ -1,16 +1,13 @@
-from fastapi import APIRouter, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+from fastapi import APIRouter
 
 
 router = APIRouter()
-templates = Jinja2Templates(directory="templates")
 
-@router.get("/", name = "index", response_class=HTMLResponse)
-async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+@router.get("/")
+async def index():
+    return {"massage": "Главная страница сайта"}
 
-@router.get("/about/", name = "about", response_class=HTMLResponse)
-async def about(request: Request):
-    return templates.TemplateResponse("about.html", {"request": request})
+@router.get("/about/")
+async def about():
+    return {"massage": "Информация о сайте и разработчике"}
 
