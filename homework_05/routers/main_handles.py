@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, status, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from schemas.cars import cars_list, Car
 
@@ -22,8 +22,8 @@ async def cars_details(request: Request):
 
     return templates.TemplateResponse("cars_list.html", context=context)
 
-@router.get("/{car_id}", response_class=HTMLResponse, name = "car_details")
-async def car_detail(request: Request, car_id: int):
+@router.get("/{car_id}", response_class=JSONResponse, name = "car_details")
+async def car_detail(car_id: int):
     """Получить информацию об автомобиле"""
 
     car_id -=1
@@ -33,12 +33,13 @@ async def car_detail(request: Request, car_id: int):
 
     car = cars_list[car_id]
 
-    context = {
-        "request": request,
-        "car": car,
-    }
+    # context = {
+    #     "request": request,
+    #     "car": car,
+    # }
 
-    return templates.TemplateResponse("car_details.html", context=context)
+    # return templates.TemplateResponse("car_details.html", context=context)
+    return {"car №": car.id, "brand": car.brand, "model": car.model, "cost": car.cost}
 
 @router.post("/", response_model=Car, status_code=status.HTTP_201_CREATED, name = "car_create")
 async def car_add(new_car: Car):
